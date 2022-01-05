@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"testing"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/group/edwards25519"
-	"go.dedis.ch/kyber/v3/util/random"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/group/edwards25519"
+	"github.com/TopiaNetwork/kyber/v3/util/random"
 )
 
 var testSuite = edwards25519.NewBlakeSHA256Ed25519()

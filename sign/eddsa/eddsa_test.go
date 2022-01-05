@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"go.dedis.ch/kyber/v3/group/edwards25519"
-	"go.dedis.ch/kyber/v3/util/random"
+	"github.com/TopiaNetwork/kyber/v3/group/edwards25519"
+	"github.com/TopiaNetwork/kyber/v3/util/random"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

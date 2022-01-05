@@ -5,9 +5,9 @@ import (
 	"crypto/cipher"
 	"testing"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/util/key"
-	"go.dedis.ch/kyber/v3/util/random"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/util/key"
+	"github.com/TopiaNetwork/kyber/v3/util/random"
 )
 
 // Suite represents the functionalities that this package can test

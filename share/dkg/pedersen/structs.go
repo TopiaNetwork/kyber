@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"encoding/binary"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/share"
-	vss "go.dedis.ch/kyber/v3/share/vss/pedersen"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/share"
+	vss "github.com/TopiaNetwork/kyber/v3/share/vss/pedersen"
 )
 
 //go:generate msgp

@@ -8,11 +8,11 @@ import (
 	"math/big"
 	"reflect"
 
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/group/internal/marshalling"
+	"github.com/TopiaNetwork/kyber/v3/util/random"
+	"github.com/TopiaNetwork/kyber/v3/xof/blake2xb"
 	"go.dedis.ch/fixbuf"
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/group/internal/marshalling"
-	"go.dedis.ch/kyber/v3/util/random"
-	"go.dedis.ch/kyber/v3/xof/blake2xb"
 )
 
 // QrSuite is a quadratic residue suite
@@ -50,7 +50,7 @@ func (s *QrSuite) New(t reflect.Type) interface{} {
 }
 
 // NewBlakeSHA256QR512 returns a cipher suite based on package
-// go.dedis.ch/kyber/v3/xof/blake2xb, SHA-256, and a residue group of
+// github.com/TopiaNetwork/kyber/v3/xof/blake2xb, SHA-256, and a residue group of
 // quadratic residues modulo a 512-bit prime.
 //
 // This group size should be used only for testing and experimentation.

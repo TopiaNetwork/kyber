@@ -16,12 +16,12 @@ import (
 	"fmt"
 	"io"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/util/random"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/util/random"
 
-	"go.dedis.ch/kyber/v3/share"
-	vss "go.dedis.ch/kyber/v3/share/vss/pedersen"
-	"go.dedis.ch/kyber/v3/sign/schnorr"
+	"github.com/TopiaNetwork/kyber/v3/share"
+	vss "github.com/TopiaNetwork/kyber/v3/share/vss/pedersen"
+	"github.com/TopiaNetwork/kyber/v3/sign/schnorr"
 )
 
 // Suite wraps the functionalities needed by the dkg package

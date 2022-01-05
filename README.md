@@ -36,7 +36,7 @@ Using the module
 ----------------
 
 Kyber supports Go modules, and currently has a major version of 3, which means that
-the import path is: `go.dedis.ch/kyber/v3`.
+the import path is: `github.com/TopiaNetwork/kyber/v3`.
 
 Here is a basic example of getting started using it:
 1. Make a new directory called “ex". Change directory to “ex" and put this in main.go:
@@ -45,7 +45,7 @@ package main
 
 import (
     "fmt"
-    "go.dedis.ch/kyber/v3/suites"
+    "github.com/TopiaNetwork/kyber/v3/suites"
 )
 
 func main() {
@@ -55,7 +55,7 @@ func main() {
 }
 ```
 2. Type “go mod init example.com/ex”. The resulting go.mod file will have no dependencies listed yet.
-3. Type “go build”. The go tool will fill in the new dependencies that it find for you, i.e. "require go.dedis.ch/kyber/v3 v3.0.13”.
+3. Type “go build”. The go tool will fill in the new dependencies that it find for you, i.e. "require github.com/TopiaNetwork/kyber/v3 v3.0.13”.
 4. Running `./ex` will print `0000000000000000000000000000000000000000000000000000000000000000`.
 
 A note on deriving shared secrets

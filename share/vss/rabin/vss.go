@@ -36,9 +36,9 @@ import (
 	"fmt"
 	"reflect"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/share"
-	"go.dedis.ch/kyber/v3/sign/schnorr"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/share"
+	"github.com/TopiaNetwork/kyber/v3/sign/schnorr"
 	"go.dedis.ch/protobuf"
 )
 

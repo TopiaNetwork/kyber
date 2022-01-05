@@ -41,12 +41,12 @@ import (
 	"errors"
 	"fmt"
 
-	"go.dedis.ch/kyber/v3"
-	"go.dedis.ch/kyber/v3/sign/schnorr"
+	"github.com/TopiaNetwork/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3/sign/schnorr"
 	"go.dedis.ch/protobuf"
 
-	"go.dedis.ch/kyber/v3/share"
-	vss "go.dedis.ch/kyber/v3/share/vss/rabin"
+	"github.com/TopiaNetwork/kyber/v3/share"
+	vss "github.com/TopiaNetwork/kyber/v3/share/vss/rabin"
 )
 
 // Suite wraps the functionalities needed by the dkg package

@@ -18,7 +18,7 @@ import (
 	"sort"
 	"strings"
 
-	"go.dedis.ch/kyber/v3"
+	"github.com/TopiaNetwork/kyber/v3"
 )
 
 // Some error definitions

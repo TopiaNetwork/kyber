@@ -4,7 +4,7 @@ package dkg
 
 import (
 	"github.com/tinylib/msgp/msgp"
-	vss "go.dedis.ch/kyber/v3/share/vss/pedersen"
+	vss "github.com/TopiaNetwork/kyber/v3/share/vss/pedersen"
 )
 
 // DecodeMsg implements msgp.Decodable
