@@ -3,6 +3,7 @@ package bn256
 import (
 	"bytes"
 	"encoding/hex"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -38,4 +39,20 @@ func TestPointG1_HashToPoint(t *testing.T) {
 	if !bytes.Equal(p2Buf, refBuf2) {
 		t.Error("hash does not match reference")
 	}
+}
+
+func TestPointG2(t *testing.T) {
+	suit := NewSuiteG2()
+	sc := suit.Scalar().Pick(suit.RandomStream())
+	pkPoint := suit.Point().Mul(sc, nil)
+
+	pk, _ := pkPoint.MarshalBinary()
+
+	pkP, err := UnmarshalBinaryPG2(pk)
+	if err != nil {
+		panic("UnmarshalBinaryPG2 err")
+	}
+
+	assert.Equal(t, true, pkPoint.Equal(pkP))
+
 }

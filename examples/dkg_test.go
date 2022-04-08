@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/TopiaNetwork/kyber/v3"
 	"github.com/TopiaNetwork/kyber/v3/group/edwards25519"
 	"github.com/TopiaNetwork/kyber/v3/share"
 	dkg "github.com/TopiaNetwork/kyber/v3/share/dkg/pedersen"
+	"github.com/stretchr/testify/require"
 )
 
 var suite = edwards25519.NewBlakeSHA256Ed25519()
