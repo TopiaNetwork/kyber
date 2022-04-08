@@ -309,6 +309,23 @@ func (d *DistKeyGenerator) Deals() (map[int]*Deal, error) {
 	return dd, nil
 }
 
+//added for topia
+func (d *DistKeyGenerator) GetPub(dealIndex uint32) (kyber.Point, error) {
+	var pub kyber.Point
+	var ok bool
+	if d.isResharing {
+		pub, ok = getPub(d.c.OldNodes, dealIndex)
+	} else {
+		pub, ok = getPub(d.c.NewNodes, dealIndex)
+	}
+
+	if !ok {
+		return nil, errors.New("dkg: dist deal out of bounds index")
+	}
+
+	return pub, nil
+}
+
 // ProcessDeal takes a Deal created by Deals() and stores and verifies it. It
 // returns a Response to broadcast to every other participant, including the old
 // participants. It returns an error in case the deal has already been stored,
