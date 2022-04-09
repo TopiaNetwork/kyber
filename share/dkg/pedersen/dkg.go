@@ -313,6 +313,23 @@ func (d *DistKeyGenerator) Deals() (map[int]*Deal, error) {
 func (d *DistKeyGenerator) GetParticipantPub(index uint32) (kyber.Point, error) {
 	pub, ok := getPub(d.c.NewNodes, index)
 	if !ok {
+		return nil, errors.New("dkg: dist participant out of bounds index")
+	}
+
+	return pub, nil
+}
+
+//added for topia
+func (d *DistKeyGenerator) GetDealVerifySignPub(dealIndex uint32) (kyber.Point, error) {
+	var pub kyber.Point
+	var ok bool
+	if d.isResharing {
+		pub, ok = getPub(d.c.OldNodes, dealIndex)
+	} else {
+		pub, ok = getPub(d.c.NewNodes, dealIndex)
+	}
+
+	if !ok {
 		return nil, errors.New("dkg: dist deal out of bounds index")
 	}
 
