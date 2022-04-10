@@ -336,6 +336,11 @@ func (d *DistKeyGenerator) GetDealVerifySignPub(dealIndex uint32) (kyber.Point, 
 	return pub, nil
 }
 
+//added for topia
+func (d *DistKeyGenerator) GetVerifierPubOfDealer(i int) (kyber.Point, bool) {
+	return d.dealer.GetVerifierPub(i)
+}
+
 // ProcessDeal takes a Deal created by Deals() and stores and verifies it. It
 // returns a Response to broadcast to every other participant, including the old
 // participants. It returns an error in case the deal has already been stored,

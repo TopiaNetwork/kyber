@@ -174,6 +174,11 @@ func (d *Dealer) PlaintextDeal(i int) (*Deal, error) {
 	return d.deals[i], nil
 }
 
+//added for topia
+func (d *Dealer) GetVerifierPub(i int) (kyber.Point, bool) {
+	return findPub(d.verifiers, uint32(i))
+}
+
 // EncryptedDeal returns the encryption of the deal that must be given to the
 // verifier at index i.
 // The dealer first generates a temporary Diffie Hellman key, signs it using its
