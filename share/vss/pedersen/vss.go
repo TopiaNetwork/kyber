@@ -432,6 +432,9 @@ func (v *Verifier) decryptDeal(e *EncryptedDeal) (*Deal, error) {
 // be sure to have dispatched a deal before.
 var ErrNoDealBeforeResponse = errors.New("verifier: need to receive deal before response")
 
+//added for topia
+var ErrExistResponseOfSameOrigin = errors.New("vss: already existing response from same origin")
+
 // ProcessResponse analyzes the given response. If it's a valid complaint, the
 // verifier should expect to see a Justification from the Dealer. It returns an
 // error if it's not a valid response.
@@ -665,7 +668,7 @@ func (a *Aggregator) addResponse(r *Response) error {
 		return errors.New("vss: index out of bounds in Complaint")
 	}
 	if _, ok := a.responses[r.Index]; ok {
-		return errors.New("vss: already existing response from same origin")
+		return ErrExistResponseOfSameOrigin
 	}
 	a.responses[r.Index] = r
 	return nil
