@@ -388,7 +388,7 @@ func (v *Verifier) ProcessEncryptedDeal(e *EncryptedDeal) (*Response, error) {
 		r.Status = StatusComplaint
 	}
 
-	if err == errDealAlreadyProcessed {
+	if err == ErrDealAlreadyProcessed {
 		return nil, err
 	}
 
@@ -564,14 +564,15 @@ func NewEmptyAggregator(suite Suite, verifiers []kyber.Point) *Aggregator {
 	}
 }
 
-var errDealAlreadyProcessed = errors.New("vss: verifier already received a deal")
+//modified for topia
+var ErrDealAlreadyProcessed = errors.New("vss: verifier already received a deal")
 
 // VerifyDeal analyzes the deal and returns an error if it's incorrect. If
 // inclusion is true, it also returns an error if it is the second time this struct
 // analyzes a Deal.
 func (a *Aggregator) VerifyDeal(d *Deal, inclusion bool) error {
 	if a.deal != nil && inclusion {
-		return errDealAlreadyProcessed
+		return ErrDealAlreadyProcessed
 
 	}
 	if a.deal == nil {
