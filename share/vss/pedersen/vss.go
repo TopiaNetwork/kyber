@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"sync"
 
 	"github.com/TopiaNetwork/kyber/v3"
 	"github.com/TopiaNetwork/kyber/v3/share"
@@ -533,6 +534,7 @@ type Aggregator struct {
 	verifiers []kyber.Point
 	commits   []kyber.Point
 
+	respsSync sync.RWMutex //added for topia
 	responses map[uint32]*Response
 	sid       []byte
 	deal      *Deal
@@ -647,6 +649,10 @@ func (a *Aggregator) verifyJustification(j *Justification) error {
 	if _, ok := findPub(a.verifiers, j.Index); !ok {
 		return errors.New("vss: index out of bounds in justification")
 	}
+
+	a.respsSync.RLock()
+	defer a.respsSync.RUnlock()
+
 	r, ok := a.responses[j.Index]
 	if !ok {
 		return errors.New("vss: no complaints received for this justification")
@@ -668,6 +674,10 @@ func (a *Aggregator) addResponse(r *Response) error {
 	if _, ok := findPub(a.verifiers, r.Index); !ok {
 		return errors.New("vss: index out of bounds in Complaint")
 	}
+
+	a.respsSync.Lock()
+	defer a.respsSync.Unlock()
+
 	if _, ok := a.responses[r.Index]; ok {
 		return ErrExistResponseOfSameOrigin
 	}
@@ -700,6 +710,9 @@ func (a *Aggregator) DealCertified() bool {
 	var approvals int
 	var isComplaint bool
 
+	a.respsSync.RLock()
+	defer a.respsSync.RUnlock()
+
 	for i := range a.verifiers {
 		if r, ok := a.responses[uint32(i)]; !ok {
 			absentVerifiers++
@@ -720,6 +733,9 @@ func (a *Aggregator) DealCertified() bool {
 
 // MissingResponses returns the indexes of the expected but missing responses.
 func (a *Aggregator) MissingResponses() []int {
+	a.respsSync.RLock()
+	defer a.respsSync.RUnlock()
+
 	var absents []int
 	for i := range a.verifiers {
 		if _, ok := a.responses[uint32(i)]; !ok {
