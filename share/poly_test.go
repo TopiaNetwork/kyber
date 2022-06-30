@@ -518,3 +518,23 @@ func TestRefreshDKG(test *testing.T) {
 	// Check that the secret and the corresponding (old) public commit match
 	require.True(test, g.Point().Mul(refreshedPriPoly.Secret(), nil).Equal(dkgCommits[0]))
 }
+
+//added for topia
+func TestPriShareMarshal(test *testing.T) {
+	g := edwards25519.NewBlakeSHA256Ed25519()
+	n := 10
+	t := n/2 + 1
+	poly := NewPriPoly(g, t, nil, g.RandomStream())
+	shares := poly.Shares(n)
+
+	priSBytes, err := shares[5].Marshal()
+	require.NoError(test, err)
+
+	s := g.Scalar()
+	newPriShare := PriShare{
+		V: s,
+	}
+	err = newPriShare.Unmarshal(priSBytes)
+	require.NoError(test, err)
+	require.True(test, true, shares[5].String() == newPriShare.String())
+}

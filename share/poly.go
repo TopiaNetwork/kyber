@@ -10,6 +10,7 @@
 package share
 
 import (
+	"bytes"
 	"crypto/cipher"
 	"crypto/subtle"
 	"encoding/binary"
@@ -41,6 +42,39 @@ func (p *PriShare) Hash(s kyber.HashFactory) []byte {
 
 func (p *PriShare) String() string {
 	return fmt.Sprintf("{%d:%s}", p.I, p.V)
+}
+
+//added for topia
+func (p *PriShare) Marshal() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	priSVBytes, err := p.V.MarshalBinary()
+	if err != nil {
+		return nil, err
+	}
+
+	if err = binary.Write(buf, binary.BigEndian, int32(p.I)); err != nil {
+		return nil, err
+	}
+	if _, err = buf.Write(priSVBytes); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+//added for topia
+func (p *PriShare) Unmarshal(priSBytes []byte) error {
+	buf := bytes.NewBuffer(priSBytes)
+
+	var iIndex int32
+	if err := binary.Read(buf, binary.BigEndian, &iIndex); err != nil {
+		return err
+	}
+	p.I = int(iIndex)
+	priSVBytes := buf.Bytes()
+
+	return p.V.UnmarshalBinary(priSVBytes)
 }
 
 // PriPoly represents a secret sharing polynomial.
@@ -306,6 +340,37 @@ func (p *PubShare) Hash(s kyber.HashFactory) []byte {
 	_, _ = p.V.MarshalTo(h)
 	_ = binary.Write(h, binary.LittleEndian, p.I)
 	return h.Sum(nil)
+}
+
+//added for topia
+func (p *PubShare) Marshal() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	pubSVBytes, err := p.V.MarshalBinary()
+	if err != nil {
+		return nil, err
+	}
+
+	if err = binary.Write(buf, binary.BigEndian, p.I); err != nil {
+		return nil, err
+	}
+	if _, err = buf.Write(pubSVBytes); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+//added for topia
+func (p *PubShare) Unmarshal(pubSBytes []byte) error {
+	buf := bytes.NewBuffer(pubSBytes)
+
+	if err := binary.Read(buf, binary.BigEndian, &p.I); err != nil {
+		return err
+	}
+	pubSVBytes := buf.Bytes()
+
+	return p.V.UnmarshalBinary(pubSVBytes)
 }
 
 // PubPoly represents a public commitment polynomial to a secret sharing polynomial.
