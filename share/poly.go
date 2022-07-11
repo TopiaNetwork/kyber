@@ -351,7 +351,7 @@ func (p *PubShare) Marshal() ([]byte, error) {
 		return nil, err
 	}
 
-	if err = binary.Write(buf, binary.BigEndian, p.I); err != nil {
+	if err = binary.Write(buf, binary.BigEndian, int32(p.I)); err != nil {
 		return nil, err
 	}
 	if _, err = buf.Write(pubSVBytes); err != nil {
@@ -365,9 +365,12 @@ func (p *PubShare) Marshal() ([]byte, error) {
 func (p *PubShare) Unmarshal(pubSBytes []byte) error {
 	buf := bytes.NewBuffer(pubSBytes)
 
-	if err := binary.Read(buf, binary.BigEndian, &p.I); err != nil {
+	var iIndex int32
+	if err := binary.Read(buf, binary.BigEndian, &iIndex); err != nil {
 		return err
 	}
+	p.I = int(iIndex)
+	
 	pubSVBytes := buf.Bytes()
 
 	return p.V.UnmarshalBinary(pubSVBytes)
